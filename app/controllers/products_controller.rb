@@ -11,7 +11,19 @@ class ProductsController < ApplicationController
 
   def create
     products = Product.create(product_params)
-    render json: products , except: [:created_at, :updated_at] , status: 201
+    render json: products ,  status: 201
+  end
+
+  def update
+    products = product_find
+    products.update(product_params)
+    render json: products ,  status: 200
+  end
+
+  def destroy
+    products = product_find
+    products.destroy
+    render json: {} , status: 204
   end
 
 
