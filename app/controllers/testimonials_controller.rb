@@ -1,4 +1,8 @@
 class TestimonialsController < ApplicationController
+    belongs_to :product
+    belongs_to :user
+end
+
     before_action :set_testimonial, only: [:show, :edit, :update, :destroy]
   
     def index
