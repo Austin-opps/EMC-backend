@@ -18,9 +18,11 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     # post /users
 
     def create
-        users = User.create!(user_params)
-        render json: users, status: 201
-    end
+        user = User.create!(user_params)
+        render json: user,status: :created
+        rescue ActiveRecord::RecordInvalid => e
+            render json: {errors: e.record.errors.full_messages},status: :unprocessable_entity
+      end
 
     # update /users/:id
     def update
