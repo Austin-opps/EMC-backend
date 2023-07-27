@@ -12,10 +12,8 @@
 
 # Seed data for users
 
-User.delete_all
-
-user1 = User.create(name: "JohnDoe", email: "johndoe@example.com",  password_digest: "password", profile_picture: "https://i.imgur.com/5XfU5ZM.png")
-user2 =User.create(name: "JaneSmith", email: "janesmith@example.com",  password_digest: "password", profile_picture: "https://i.imgur.com/5XfU5ZM.png")
+User.create(name: "JohnDoe", email: "johndoe@example.com",  password_digest: "password", profile_picture: "https://i.imgur.com/5XfU5ZM.png")
+User.create(name: "JaneSmith", email: "janesmith@example.com",  password_digest: "password", profile_picture: "https://i.imgur.com/5XfU5ZM.png")
 
 
 # Seed data for products
@@ -26,7 +24,7 @@ Product.delete_all
 
 # Seed data for products
 puts 'Seeding products...'
-product1 = Product.create(name: "Iphone 13", price: 600,  image: "https://i.imgur.com/5XfU5ZM.png", description: "Best camera in the industry", category: "Electronics", user_id: user1.id)
-product2 = Product.create(name: "Banana", price: 2,  image: "https://i.imgur.com/5XfU5ZM.png", description: "Enjoy your Fiber", category: "Food",user_id: user2.id)
+Product.create(name: "Iphone 13", price: 600,  image: "https://i.imgur.com/5XfU5ZM.png", description: "Best camera in the industry", category: "Electronics", quantity: 3, admin_id: 3)
+Product.create(name: "Banana", price: 2,  image: "https://i.imgur.com/5XfU5ZM.png", description: "Enjoy your Fiber", category: "Food", quantity: 3, admin_id: 3)
 
 puts "Database successfully seeded!"

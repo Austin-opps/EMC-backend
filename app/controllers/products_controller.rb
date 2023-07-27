@@ -1,12 +1,12 @@
 class ProductsController < ApplicationController
   def index
     products = Product.all
-    render json: products , except: [:created_at, :updated_at] , status: 200
+    render json: products , status: 200
   end
 
   def show
     products = product_find
-    render json: products , except: [:created_at, :updated_at] , status: 200
+    render json: products , status: 200
   end
 
   def create
