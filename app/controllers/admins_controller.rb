@@ -9,7 +9,7 @@ class AdminsController < ApplicationController
   end
 
   def show
-    admin = Admin.find_by(admin_params)
+    admin = admin_find
     render json: admin, except: [:created_at, :updated_at], include: :products
   end
 
