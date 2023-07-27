@@ -11,8 +11,8 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     # get /users/:id - single user 
 
     def show 
-        user = user_find
-        render json: user, status: 200
+        currentUser = find_by(session[:user_id]) #had to chane method for this coz am using session not params
+        render json: currentUser, status: 200
     end
 
     # post /users

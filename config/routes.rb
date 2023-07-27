@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
-  # get 'sessions#me'
+  get '/auth',to: 'users#show'
   delete '/logout',to: 'sessions#destroy'
   resources :carts
   resources :products
