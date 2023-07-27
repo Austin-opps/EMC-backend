@@ -18,7 +18,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     # post /users
 
     def create
-        users = User.create(user_params)
+        users = User.create!(user_params)
         render json: users, status: 201
     end
 
