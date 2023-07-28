@@ -63,3 +63,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+# Gemfiles for assigning roles
+gem 'devise'
+gem 'cancancan'
