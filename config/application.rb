@@ -12,8 +12,8 @@ module Easymart
     config.load_defaults 7.0
 
     # configured rails to use cookies -KK
-    config.middleware.use.ActionDispatch::Cookies
-    config.middleware.use.ActionDispatch::Session::CookiesStore
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
     
     # config to protect cookies for same domain request only -KK
     config.action_dispatch.cookies_same_site_protection = :strict

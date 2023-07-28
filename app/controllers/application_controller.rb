@@ -1,7 +1,10 @@
 
 class ApplicationController < ActionController::API
-# pulled from remote confirm head
-# class ApplicationController < ActionController::Base
-# include ActionController::Cookies
-
+    include ActionController::Cookies
+    before_action :authorized
+    
+    def authorized
+        render json:{error: 'Not Authorized'},status: :unauthorized unless session.include? :user_id
+    end
+    
 end
