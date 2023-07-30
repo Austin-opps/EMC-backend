@@ -6,7 +6,6 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.string :image
       t.string :description
       t.string :category
-      
       t.integer :user_id
 
 
