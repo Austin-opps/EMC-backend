@@ -5,28 +5,30 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def index 
         users = User.all
-        render json: users, except: [:created_at, :updated_at]
+        render json: users
     end
 
     # get /users/:id - single user 
 
     def show 
-        user = user_find
-        render json: user, except: [:created_at, :updated_at], status: 200
+        currentUser = find_by(session[:user_id]) #had to chane method for this coz am using session not params
+        render json: currentUser, status: 200
     end
 
     # post /users
 
     def create
-        users = User.create(user_params)
-        render json: users, except: [:created_at, :updated_at], status: 201
-    end
+        user = User.create!(user_params)
+        render json: user,status: :created
+        rescue ActiveRecord::RecordInvalid => e
+            render json: {errors: e.record.errors.full_messages},status: :unprocessable_entity
+      end
 
     # update /users/:id
     def update
         user = user_find
         user.update(user_params)
-        render json: user, except:  [:created_at, :updated_at], status: 200
+        render json: user, status: 200
     end
 
     # delete /users/:id
@@ -43,7 +45,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     end
 
     def user_params
-        params.permit(:name, :email, :password,:password_confirmation , :profile_picture)
+        params.permit(:name, :email, :password, :password_confirmation , :profile_picture)
     end
 
     def render_not_found_response
