@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_124711) do
     t.string "description"
     t.string "category"
     t.integer "quantity"
+
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
