@@ -28,7 +28,7 @@ class AdminsController < ApplicationController
   end
 
   def admin_params
-    params.permit(:name, :email, :password, :password_confirmation, :product_id, :profile_picture)
+    params.permit(:name, :email, :password, :password_confirmation, :profile_picture)
   end
 
   def render_not_found_response
