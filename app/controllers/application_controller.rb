@@ -1,9 +1,10 @@
-class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
-  before_action :authenticate_user!
-  load_and_authorize_resource # Enable CanCanCan authorization
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_path, alert: exception.message
-  end
+class ApplicationController < ActionController::API
+    include ActionController::Cookies
+    before_action :authorized
+    
+    def authorized
+        render json:{error: 'Not Authorized'},status: :unauthorized unless session.include? :user_id
+    end
+    
 end

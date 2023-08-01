@@ -1,35 +1,57 @@
 class TestimonialsController < ApplicationController
+   
+
+
+    before_action :set_testimonial, only: [:show, :edit, :update, :destroy]
+  
     def index
-        product_id = params[:product_id]
-        testimonials = Testimonial.where(product_id: product_id)
-        render json: testimonials
-      end
+      @testimonials = Testimonial.all
+      render json: @testimonials
+    end
   
-      def create
-          product_id = params[:product_id]
-          user_id = params[:user_id]
-          testimonials = params[:testimonials]
-      
-          testimonial = Testimonial.new(product_id: product_id, user_id: user_id, testimonials: testimonials)
-      
-          if testimonial.save
-            render json: testimonial
-          else
-            render json: { error: "Error saving testimonial" }, status: :internal_server_error
-          end
-      end
-      
-      def destroy
-      product_id = params[:product_id]
-      testimonial_id = params[:testimonial_id]
+    def show
+      render json: @testimonial
+    end
   
-      testimonial = Testimonial.find_by(id: testimonial_id, product_id: product_id)
+    def new
+      @testimonial = Testimonial.new
+    end
   
-      if testimonial.nil?
-          render json: { error: "Testimonial not found" }, status: :not_found
+    def create
+      @testimonial = Testimonial.new(testimonial_params)
+      if @testimonial.save
+        render json: @testimonial, status: :created, location: @testimonial
       else
-          testimonial.destroy
-          render json: { message: "Testimonial deleted successfully" }
+        render json: @testimonial.errors, status: :unprocessable_entity
       end
+    end
+  
+    def edit
+    end
+  
+    def update
+      if @testimonial.update(testimonial_params)
+        render json: @testimonial
+      else
+        render json: @testimonial.errors, status: :unprocessable_entity
       end
-end
+    end
+  
+    def destroy
+      @testimonial.destroy
+      render json: { message: 'Testimonial deleted successfully' }
+    end
+  
+    private
+  
+    def set_testimonial
+      @testimonial = Testimonial.find(params[:id])
+    end
+  
+    def testimonial_params
+      params.require(:testimonial).permit(:author, :content)
+    end
+  end
+
+  
+  

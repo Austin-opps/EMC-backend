@@ -15,7 +15,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_105034) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "product_id"
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,10 +36,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_105034) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
+    t.float "price"
     t.string "image"
-    t.string "descripton"
+    t.string "description"
     t.string "category"
+    t.integer "quantity"
+
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -50,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_105034) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_testimonials_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,4 +69,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_105034) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "testimonials", "users"
 end

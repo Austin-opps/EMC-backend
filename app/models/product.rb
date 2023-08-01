@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
-  belongs_to :admin
-  has_many :users
-  has_many :testimonials, through: :users
+
+  # belongs_to :cart
+  # has_many :testimonials
+  # belongs_to :admin
+
 end
