@@ -11,7 +11,7 @@ skip_before_action :authorized, only: [:index, :show]
     # get /users/:id - single user 
 
     def show 
-        currentUser = find_by(session[:user_id]) #had to chane method for this coz am using session not params
+        currentUser = find_by(id: session[:user_id]) #had to chane method for this coz am using session not params
         # currentUser = user_find
         render json: currentUser, status: 200
     end
