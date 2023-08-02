@@ -15,6 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_135423) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.integer "product_id"
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,15 +40,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_135423) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.float "price"
+    t.integer "price"
     t.string "image"
-    t.integer "admin_id"
     t.string "description"
     t.string "category"
-    t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_id"], name: "index_products_on_admin_id"
+    t.integer "quantity"
+    t.integer "admin_id"
   end
 
   create_table "testimonials", force: :cascade do |t|

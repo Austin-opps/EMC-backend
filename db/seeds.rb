@@ -1,15 +1,16 @@
 Admin.delete_all
-user1 = Admin.create(name: "John Doe", email: "john.doe@example.com",profile_picture:"hhFDGIUYQFD", password_digest: "password")
-user2 = Admin.create(name: "Jane Smith", email: "jane.smith@example.com",profile_picture:"hhFDGIUYQFD", password_digest: "password")
+admin1 = Admin.create(name: "Austin Doe", email: "john@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password",product_id: 1)
+admin2 = Admin.create(name: "Mercy Smith", email: "jane@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password",product_id: 2)
 
-# user1 = User.create(name: "John Doe", email: "john.doe@example.com",profile_picture:"hhFDGIUYQFD", password_digest: "password")
-# user2 = User.create(name: "Jane Smith", email: "jane.smith@example.com",profile_picture:"hhFDGIUYQFD", password_digest: "password")
-
+# User.destroy
+user1 = User.create(name: "Kevin Wairi", email: "kevin.wairi@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
+user2 = User.create(name: "Rose Mary", email: "rose.mary@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
+puts user1
 # Seed data for products
 # db/seeds.rb
 
 # Clear existing data to avoid duplication when re-seeding
-Product.delete_all
+# Product.delete_all
 
 # Seed data for products
 # puts 'Seeding products...'
@@ -17,8 +18,13 @@ Product.delete_all
 # product2 = Product.create(name: "Banana", price: 2,  image: "https://i.imgur.com/5XfU5ZM.png", description: "Enjoy your Fiber", category: "Food",  quantity:70 , admin_id: 2)
 
 # Seed data for testmonials
+Testimonial.delete_all
 testimonial1 = Testimonial.create(message: "I love this product", user_id: 1)
 testimonial2 = Testimonial.create(message: "I recommend this product", user_id: 2)
+
+Cart.delete_all
+cart1 = Cart.create(product_id: 2, user_id: 1, quantity: 20)
+cart2 = Cart.create(product_id: 3, user_id: 2, quantity: 10)
 
 puts "Database successfully seeded!"
 
@@ -29,7 +35,7 @@ file_path = File.join(File.dirname(__FILE__), "./clothes.json")
 json_data = File.read(file_path)
 products = JSON.parse(json_data)
 puts "Data"
-puts products
+# puts products
 #'converted'
 puts "seeding products.............................................."
 products.each do |product|
@@ -41,7 +47,7 @@ products.each do |product|
     name: product["title"],
     price: product["price"]["value"] * 100,
     image: product["thumbnailImage"],
-    admin: user1,
+    admin: admin1,
     description: product["features"],
     category: cat,
     quantity: product["reviewsCount"],
@@ -64,7 +70,7 @@ products.each do |product|
     name: product["title"],
     price: product["price"]["value"] * 100,
     image: product["thumbnailImage"],
-    admin: user1,
+    admin: admin1,
     description: product["features"],
     category: cat,
     quantity: product["reviewsCount"],
@@ -89,7 +95,7 @@ if products.present? # Check if the products array is not empty
         name: product["title"],
         price: product["price"]["value"] * 100,
         image: product["thumbnailImage"],
-        admin: user1,
+        admin: admin1,
         description: feature,
         category: cat,
         quantity: product["reviewsCount"],

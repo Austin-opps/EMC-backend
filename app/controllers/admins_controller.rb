@@ -1,4 +1,6 @@
 class AdminsController < ApplicationController
+  skip_before_action :authorized, only: [:index ,:show, :create , :update, :destroy] #you need  user authorization to view data or you can just uncomment this line
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
   # get /admin
@@ -11,6 +13,11 @@ class AdminsController < ApplicationController
   def show
     admin = admin_find
     render json: admin, except: [:created_at, :updated_at], include: :products
+  end
+
+  def create
+    admin = Admin.create!(admin_params)
+    render json: admin, status: :created
   end
 
   # delete /admin/:id
@@ -32,6 +39,6 @@ class AdminsController < ApplicationController
   end
 
   def render_not_found_response
-    render json: { error: "User not found" }, status: 404
+    render json: { error: "Admin not found" }, status: 404
   end
 end
