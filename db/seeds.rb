@@ -34,79 +34,96 @@ Product.delete_all
 file_path = File.join(File.dirname(__FILE__), "./clothes.json")
 json_data = File.read(file_path)
 products = JSON.parse(json_data)
-puts "Data"
-# puts products
-#'converted'
-puts "seeding products.............................................."
-products.each do |product|
-  #get the category from breadCrumbs
-  cat = product["breadCrumbs"].split(",").first
-  feature = product["features"].split(",").first
 
-  Product.create(
-    name: product["title"],
-    price: product["price"]["value"] * 100,
-    image: product["thumbnailImage"],
-    admin: admin1,
-    description: product["features"],
-    category: cat,
-    quantity: product["reviewsCount"],
-  )
+ puts 'seeding products 🍔 '
+products.each do |product|
+    #get the category from breadCrumbs
+    cat = product["breadCrumbs"].split(",").first
+    feature = product['features'].split(":").first
+      originalString = product['title'] # remove the text Amazon from titles
+      updatedTitle = originalString.gsub(/Amazon Essentials|Amazon Aware/i, " ")
+      
+      if !product['description'].nil?
+        paragraph = product['description']
+        starting_phrases_regex = /^(We listen|Amazon Essentials|Discover our|An Amazon),/
+        if paragraph.match?(starting_phrases_regex)
+          updated_paragraph = paragraph.gsub(starting_phrases_regex, "")
+          desc = updated_paragraph
+          else
+          desc = product['description']
+        end
+        
+        Product.create(
+          name: updatedTitle,
+          price: product['price']['value']*10,
+          image: product['thumbnailImage'],
+          description: desc,
+          category: cat,
+          quantity: rand(10..100)
+      ) 
+      end
+     
 end
-puts "done clothes"
+puts 'done clothes 🕵️'
 
 # 'Start seeding from JSON file'
 file_path = File.join(File.dirname(__FILE__), "./shoes.json")
 json_data = File.read(file_path)
 products = JSON.parse(json_data)
-# 'converted'
-puts "seeding shoes"
+
+
+
+ puts 'seeding shoes 🍞'
 products.each do |product|
-  #get the category from breadCrumbs
-  cat = product["breadCrumbs"].split(",").first
-  feature = product["features"].split(",").first
-
-  Product.create(
-    name: product["title"],
-    price: product["price"]["value"] * 100,
-    image: product["thumbnailImage"],
-    admin: admin1,
-    description: product["features"],
-    category: cat,
-    quantity: product["reviewsCount"],
-  )
-end
-puts "done shoes"
-
-file_path = File.join(File.dirname(__FILE__), "./cologne.json")
-json_data = File.read(file_path)
-products = JSON.parse(json_data)
-puts "seeding cologne"
-
-if products.present? # Check if the products array is not empty
-  products.each do |product|
-    # get the category from breadCrumbs
-    cat = product["breadCrumbs"]&.split(",")&.first
-    feature = product["features"]&.split(",")&.first
-
-    # Verify if the required data is present before creating the product
-    if product["title"] && product["price"] && product["price"]["value"] && product["thumbnailImage"] && cat && feature && product["reviewsCount"]
-      Product.create(
-        name: product["title"],
-        price: product["price"]["value"] * 100,
-        image: product["thumbnailImage"],
-        admin: admin1,
-        description: feature,
+    #get the category from breadCrumbs
+    cat = product["breadCrumbs"].split(",").first
+    if product['description'].nil? #sets description
+      feature = product['features'][0].split(",").first
+      desc = feature
+      else
+      desc = product['description']
+    end
+  
+    Product.create(
+        name: product['title'],
+        price: product['price']['value']*10,
+        image: product['thumbnailImage'],
+        description: desc,
         category: cat,
-        quantity: product["reviewsCount"],
+        quantity: rand(10..100)
+    )
+  end
 
+    puts 'done shoes 🍕'
+
+    file_path = File.join(File.dirname(__FILE__), './cologne.json')
+    json_data = File.read(file_path)
+    products = JSON.parse(json_data)
+    puts 'seeding cologne 🍣'
+
+    products.each do |product|
+    # get the category from breadCrumbs
+
+    cat = product["breadCrumbs"].split(",").first
+    if product['features'][0].nil?
+      desc = product['brand']
+     else
+      feature = product['features'].split(",").first
+      desc = feature
+    end
+
+    #Verify if the required data is present before creating the product
+     if product['title'] && product['price'] && product['price']['value'] && product['thumbnailImage'] && cat
+      
+      Product.create(
+        name: product['title'],
+        price: product['price']['value']*10,
+        image: product['thumbnailImage'],
+        description: desc,
+        category: cat,
+        quantity: rand(10..100)
       )
     end
   end
-else
-  puts "The products array is empty."
-end
 
-puts "done cologne"
-
-puts "complete ////////////////////////////////////////"
+puts 'done cologne 🍻'
