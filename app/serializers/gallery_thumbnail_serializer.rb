@@ -1,3 +1,3 @@
 class GalleryThumbnailSerializer < ActiveModel::Serializer
-  attributes :image
+  attributes :id,:image
 end

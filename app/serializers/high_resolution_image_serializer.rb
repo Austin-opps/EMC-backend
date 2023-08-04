@@ -1,3 +1,3 @@
 class HighResolutionImageSerializer < ActiveModel::Serializer
-  attributes :image
+  attributes :id,:image
 end
