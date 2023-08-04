@@ -1,6 +1,6 @@
-Admin.delete_all
-admin1 = Admin.create(name: "Austin Doe", email: "john@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password",product_id: 1)
-admin2 = Admin.create(name: "Mercy Smith", email: "jane@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password",product_id: 2)
+# Admin.delete_all
+admin1 = Admin.create(name: "Austin Doe", email: "john@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
+admin2 = Admin.create(name: "Mercy Smith", email: "jane@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
 
 # User.destroy
 user1 = User.create(name: "Kevin Wairi", email: "kevin.wairi@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
@@ -26,10 +26,9 @@ Cart.delete_all
 cart1 = Cart.create(product_id: 2, user_id: 1, quantity: 20)
 cart2 = Cart.create(product_id: 3, user_id: 2, quantity: 10)
 
-puts "Database successfully seeded!"
 
 require "json"
-Product.delete_all
+# Product.delete_all
 # 'Start seeding from JSON file'
 file_path = File.join(File.dirname(__FILE__), "./clothes.json")
 json_data = File.read(file_path)
@@ -52,19 +51,24 @@ products.each do |product|
           else
           desc = product['description']
         end
-        
-        Product.create(
+        num = product['price']['value']*100
+        rounded = num.round(1)
+        newProduct = Product.create(
           name: updatedTitle,
-          price: product['price']['value']*10,
+          price: rounded,
           image: product['thumbnailImage'],
           description: desc,
           category: cat,
-          quantity: rand(10..100)
+          quantity: rand(10..50)
       ) 
-      end
-     
+        product['highResolutionImages'].each do |thumbnail| 
+          newProduct.highResolutionImages.create(image: thumbnail)
+        end
+        product['galleryThumbnails'].each do |thumbnail|
+        newProduct.galleryThumbnails.create(image: thumbnail)
+          end
+    end
 end
-puts 'done clothes 🕵️'
 
 # 'Start seeding from JSON file'
 file_path = File.join(File.dirname(__FILE__), "./shoes.json")
@@ -73,7 +77,7 @@ products = JSON.parse(json_data)
 
 
 
- puts 'seeding shoes 🍞'
+ puts 'waiiiiit 🍞'
 products.each do |product|
     #get the category from breadCrumbs
     cat = product["breadCrumbs"].split(",").first
@@ -83,23 +87,31 @@ products.each do |product|
       else
       desc = product['description']
     end
+    num = product['price']['value']*100
+        rounded = num.round(1)
   
-    Product.create(
+        newProduct = Product.create(
         name: product['title'],
-        price: product['price']['value']*10,
+        price: rounded,
         image: product['thumbnailImage'],
         description: desc,
         category: cat,
-        quantity: rand(10..100)
+        quantity: rand(10..50),
     )
+    product['highResolutionImages'].each do |thumbnail| 
+      newProduct.highResolutionImages.create(image: thumbnail)
+    end
+    product['galleryThumbnails'].each do |thumbnail|
+    newProduct.galleryThumbnails.create(image: thumbnail)
+      end
   end
 
-    puts 'done shoes 🍕'
+     puts 'almost done 🍕'
 
     file_path = File.join(File.dirname(__FILE__), './cologne.json')
     json_data = File.read(file_path)
     products = JSON.parse(json_data)
-    puts 'seeding cologne 🍣'
+
 
     products.each do |product|
     # get the category from breadCrumbs
@@ -113,17 +125,24 @@ products.each do |product|
     end
 
     #Verify if the required data is present before creating the product
-     if product['title'] && product['price'] && product['price']['value'] && product['thumbnailImage'] && cat
-      
-      Product.create(
-        name: product['title'],
-        price: product['price']['value']*10,
-        image: product['thumbnailImage'],
-        description: desc,
-        category: cat,
-        quantity: rand(10..100)
-      )
+     if product['title'] && product['price'] && product['price']['value'] && product['thumbnailImage'] && cat && product['galleryThumbnails']
+      num = product['price']['value']*100
+      rounded = num.round(1)
+       newProduct = Product.create(
+         name: product['title'],
+         price: rounded,
+         image: product['thumbnailImage'],
+         description: desc,
+         category: cat,
+         quantity: rand(10..50),
+       )
+      product['highResolutionImages'].each do |thumbnail| 
+      newProduct.highResolutionImages.create(image: thumbnail)
+      end
+      product['galleryThumbnails'].each do |thumbnail|
+      newProduct.galleryThumbnails.create(image: thumbnail)
+      end
     end
   end
 
-puts 'done cologne 🍻'
+puts "Database successfully seeded! 🍻"
