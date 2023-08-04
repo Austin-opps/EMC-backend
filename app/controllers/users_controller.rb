@@ -1,25 +1,26 @@
 class UsersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-skip_before_action :authorized, only: [:index, :show]
-    # get /users
-    skip_before_action :authorized, only: :create
-    def index 
-        users = User.all
-        render json: users
-    end
+skip_before_action :authorized, only: [:create, :show]
+ 
+# get /users
+    # def index 
+    #     users = User.all
+    #     render json: users
+    # end
 
     # get /users/:id - single user 
 
     def show 
-        currentUser = find_by(id: session[:user_id]) #had to chane method for this coz am using session not params
+        user = User.find_by(id: session[:user_id]) #had to chane method for this coz am using session not params
         # currentUser = user_find
-        render json: currentUser, status: 200
+        render json: user, status: 200
     end
 
     # post /users
 
     def create
         user = User.create!(user_params)
+        session[:user_id] = user.id
         render json: user,status: :created
         rescue ActiveRecord::RecordInvalid => e
             render json: {errors: e.record.errors.full_messages},status: :unprocessable_entity

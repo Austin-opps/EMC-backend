@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_01_135423) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "product_id"
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,17 +37,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_135423) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "gallery_thumbnails", force: :cascade do |t|
+    t.string "image"
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_gallery_thumbnails_on_product_id"
+  end
+
+  create_table "high_resolution_images", force: :cascade do |t|
+    t.string "image"
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_high_resolution_images_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
+    t.float "price"
     t.string "image"
     t.string "description"
     t.string "category"
+    t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quantity"
-    t.integer "admin_id"
-  end
+   end
 
   create_table "testimonials", force: :cascade do |t|
     t.string "message"
@@ -67,5 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_135423) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "gallery_thumbnails", "products"
+  add_foreign_key "high_resolution_images", "products"
   add_foreign_key "testimonials", "users"
 end
