@@ -63,12 +63,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
     t.string "name"
     t.float "price"
     t.string "image"
+    t.integer "admin_id"
     t.string "description"
     t.string "category"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-   end
+    t.index ["admin_id"], name: "index_products_on_admin_id"
+  end
 
   create_table "testimonials", force: :cascade do |t|
     t.string "message"
