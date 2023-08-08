@@ -1,4 +1,11 @@
 class CartsController < ApplicationController
+<<<<<<< HEAD
+    def index
+        user = User.find(params[:user_id])
+        cart_items = user.products
+        render json: cart_items, status: :ok
+    end
+=======
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 skip_before_action :authorized, only: [:index ,:show, :create , :update, :destroy] #you need  user authorization to view data or you can just uncomment this line
     def index
@@ -44,4 +51,5 @@ skip_before_action :authorized, only: [:index ,:show, :create , :update, :destro
         render json: {error: "Cart not found"}, status: 404
     end
 
+>>>>>>> 5af94edd92cad1c9d9b21f9d26a8ac2c82fa8843
 end

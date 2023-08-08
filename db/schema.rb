@@ -18,6 +18,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -57,12 +63,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
     t.string "name"
     t.float "price"
     t.string "image"
+    t.integer "admin_id"
     t.string "description"
     t.string "category"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-   end
+    t.index ["admin_id"], name: "index_products_on_admin_id"
+  end
 
   create_table "testimonials", force: :cascade do |t|
     t.string "message"
@@ -79,6 +87,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "gallery_thumbnails", "products"
