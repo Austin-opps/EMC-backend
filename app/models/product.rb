@@ -1,8 +1,9 @@
 class Product < ApplicationRecord
-
   has_many :cart_items
   has_many :carts, through: :cart_items
   has_many :testimonials
-  belongs_to :admin
+  # belongs_to :admin
 
+  has_many :galleryThumbnails
+  has_many :highResolutionImages
 end
