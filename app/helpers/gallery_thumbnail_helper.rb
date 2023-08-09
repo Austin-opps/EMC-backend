@@ -1,0 +1,2 @@
+module GalleryThumbnailHelper
+end
