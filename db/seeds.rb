@@ -1,6 +1,6 @@
 # Admin.delete_all
-admin1 = Admin.create(name: "Austin Doe", email: "john@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
-admin2 = Admin.create(name: "Mercy Smith", email: "jane@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
+#admin1 = Admin.create(name: "Austin Doe", email: "john@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
+#admin2 = Admin.create(name: "Mercy Smith", email: "jane@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
 
 # User.destroy
 user1 = User.create(name: "Kevin Wairi", email: "kevin.wairi@example.com",profile_picture:"hhFDGIUYQFD", password: "password", password_confirmation: "password")
