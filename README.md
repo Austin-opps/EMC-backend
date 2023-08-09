@@ -1,31 +1,3 @@
-# EASYMART SHOP PROJECT
-
-Welcome to the documentation for the Online Shop project(EASYMART)! This project involves creating a web 
-application for an online shop where users can browse and purchase products, manage their shopping 
-carts, and leave testimonials. The project is built using the Ruby on Rails framework and utilizes a set 
-of database tables managed through ActiveRecord migrations.
-
-## INTRODUCTION
-The Online Shop project is a web application that allows users to explore a variety of products, add 
-them to their shopping carts, and make purchases. It also provides features such as user authentication, 
-testimonials, and product galleries.
-
-## FEATURES
-Our web application includes different features that have been integrated to make shoppers experince great and fell safe when leaving their details in this application.
-
-The features include;
-
-⦿ User Authentication: Users can sign up, log in, and log out. Passwords are securely stored using password hashing.
-
-⦿ Product Catalog: Users can browse products by category, view product details, and add items to their shopping carts.
-
-⦿ Shopping Cart: Users can add and remove products from their shopping carts, and update the quantities of items.
-
-⦿ Testimonials: Users can leave testimonials about their shopping experience.
-
-⦿ Product Galleries: High-resolution images and thumbnails are associated with products to showcase their details.
-
-⦿ Admin Dashboard: Administrators have access to an admin panel for managing products and user testimonials.
 
 ## SETUP
 To set up the project locally, follow these steps:
@@ -120,3 +92,4 @@ The project includes controllers for various features:
 13. `POST /testimonials`; A user is able to write how they feel about a product and post their feeling in form of a comment that will be displayed to other users.
 
 14. `DELETE /testimonials`; A user is able to delete their comments/reviews/testimonials but they are limited to delete other users reviews.
+
