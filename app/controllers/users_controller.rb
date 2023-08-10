@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-skip_before_action :authorized, only: [:create]
+skip_before_action :authorized, only: [:create,:show]
  
 # get /users
-    # def index 
-    #     users = User.all
-    #     render json: users
-    # end
+    def show 
+        user = user_find
+        render json: user
+    end
 
     # get /users/:id - single user 
 
@@ -41,9 +41,9 @@ skip_before_action :authorized, only: [:create]
     end
 
     private
-    # def user_find
-    #     user = User.find(params[:id])
-    # end
+    def user_find
+        user = User.find(params[:id])
+    end
 
     def user_params
         params.permit(:name, :email, :password, :password_confirmation, :profile_picture)
