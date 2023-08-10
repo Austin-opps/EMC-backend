@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_150203) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -62,14 +62,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-   end
+  end
 
   create_table "testimonials", force: :cascade do |t|
     t.string "message"
-    t.integer "user_id"
+    t.integer "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_testimonials_on_user_id"
+    t.index "\"product\"", name: "index_testimonials_on_product_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,9 +79,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_224811) do
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "isAdmin"
   end
 
   add_foreign_key "gallery_thumbnails", "products"
   add_foreign_key "high_resolution_images", "products"
-  add_foreign_key "testimonials", "users"
+  add_foreign_key "testimonials", "products"
 end
