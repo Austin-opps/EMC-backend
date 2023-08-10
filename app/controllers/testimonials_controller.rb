@@ -1,55 +1,51 @@
 class TestimonialsController < ApplicationController
    
-
-
-    before_action :set_testimonial, only: [:show, :edit, :update, :destroy]
+    skip_before_action :authorized, only: [:index,:show,:create, :edit, :update, :destroy]
   
     def index
-      @testimonials = Testimonial.all
-      render json: @testimonials
+      testimonials = Testimonial.all
+      render json: testimonials
     end
   
     def show
-      render json: @testimonial
+      testimonial = set_testimonial
+      render json: testimonial,status: :ok
     end
   
     def new
-      @testimonial = Testimonial.new
+      testimonial = Testimonial.new
     end
   
     def create
-      @testimonial = Testimonial.new(testimonial_params)
-      if @testimonial.save
-        render json: @testimonial, status: :created, location: @testimonial
+      testimonial = Testimonial.create!(testimonial_params)
+      if testimonial
+        render json: testimonial, status: :created
       else
-        render json: @testimonial.errors, status: :unprocessable_entity
+        render json:{ error: testimonial.errors}, status: :unprocessable_entity
       end
     end
   
-    def edit
-    end
-  
     def update
-      if @testimonial.update(testimonial_params)
-        render json: @testimonial
+      if testimonial.update(testimonial_params)
+        render json: testimonial
       else
-        render json: @testimonial.errors, status: :unprocessable_entity
+        render json: testimonial.errors, status: :unprocessable_entity
       end
     end
   
     def destroy
-      @testimonial.destroy
+      testimonial.destroy
       render json: { message: 'Testimonial deleted successfully' }
     end
   
     private
   
     def set_testimonial
-      @testimonial = Testimonial.find(params[:id])
+       Testimonial.find(params[:id])
     end
   
     def testimonial_params
-      params.require(:testimonial).permit(:author, :content)
+      params.require(:testimonial).permit(:product_id, :message)
     end
   end
 
