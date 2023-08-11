@@ -10,15 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_124711) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_150203) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "product_id"
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cart_items", force: :cascade do |t|
+    t.integer "cart_id"
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -29,21 +37,39 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_124711) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "gallery_thumbnails", force: :cascade do |t|
+    t.string "image"
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_gallery_thumbnails_on_product_id"
+  end
+
+  create_table "high_resolution_images", force: :cascade do |t|
+    t.string "image"
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_high_resolution_images_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
+    t.float "price"
     t.string "image"
-    t.string "descripton"
+    t.string "description"
     t.string "category"
+    t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "testimonials", force: :cascade do |t|
     t.string "message"
-    t.integer "user_id"
+    t.integer "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "\"product\"", name: "index_testimonials_on_product_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,6 +79,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_124711) do
     t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "isAdmin"
   end
 
+  add_foreign_key "gallery_thumbnails", "products"
+  add_foreign_key "high_resolution_images", "products"
+  add_foreign_key "testimonials", "products"
 end

@@ -1,0 +1,26 @@
+const token = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
+    if (token && userId) {
+      setIsLoggedIn(true);
+      fetchUserById(userId);
+      isUserLoggedIn(true);
+      fetchCurrentUser()
+    }else{
+      setIsLoggedIn(false);
+      isUserLoggedIn(false);
+
+    }
+useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
+    if (token && userId) {
+      setIsLoggedIn(true);
+      fetchUserById(userId);
+      isUserLoggedIn(true);
+      fetchCurrentUser()
+    }else{
+      setIsLoggedIn(false);
+      isUserLoggedIn(false);
+
+    }
+  }, []);
