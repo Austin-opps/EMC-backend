@@ -233,7 +233,7 @@ DEPENDENCIES
   rails (~> 7.0.6)
   selenium-webdriver
   sprockets-rails
-  sqlite3 (~> 1.4)
+  sqlite3
   tzinfo-data
   web-console
   webdrivers

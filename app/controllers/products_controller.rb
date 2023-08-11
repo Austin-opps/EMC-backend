@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-     skip_before_action :authorized, only: [:index ,:show, :destroy, :update] #you need  user authorization to view data or you can just uncomment this line
+     skip_before_action :authorized, only: [:index ,:show, :destroy, :update,:create] #you need  user authorization to view data or you can just uncomment this line
     def index
       products = Product.all
       render json: products , status: 200
