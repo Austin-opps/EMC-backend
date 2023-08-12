@@ -11,6 +11,10 @@ gem "sprockets-rails"
 gem "faker", "~> 2.18.0"
 
 # Use sqlite3 as the database for Active Record
+
+#gem 'sqlite3'
+# gem "pg"
+
 gem "pg"
 
 
