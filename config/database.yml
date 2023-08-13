@@ -12,7 +12,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-   url: postgresql://backend_db_3dtk_user:34tQBwPO8s2dGdkGXkMB2ii3VlZm2hqx@dpg-cjcierjbq8nc73au8vk0-a.oregon-postgres.render.com/backend_db_3dtk
+   url: postgresql://backend_db_3dtk_user:34tQBwPO8s2dGdkGXkMB2ii3VlZm2hqx@dpg-cjcierjbq8nc73au8vk0-a/backend_db_3dtk
   # <<: *default
   # database: db/development.postgresql
 
