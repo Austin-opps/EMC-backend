@@ -11,6 +11,6 @@ class GalleryThumbnailController < ApplicationController
 
     private
     def gallery_params
-        params.permit(:)
+        params.permit(:image, :product_id)
     end
 end
