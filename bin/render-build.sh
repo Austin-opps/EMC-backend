@@ -3,6 +3,6 @@
 set -o errexit
 
 bundle install
-rails db:migrate
+# rails db:migrate
 rails db:seed
 
