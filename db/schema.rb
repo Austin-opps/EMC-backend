@@ -10,19 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_150203) do
-  create_table "admins", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.string "profile_picture"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_190013) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "cart_items", force: :cascade do |t|
-    t.integer "cart_id"
-    t.integer "product_id"
+    t.bigint "cart_id"
+    t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
@@ -39,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_150203) do
 
   create_table "gallery_thumbnails", force: :cascade do |t|
     t.string "image"
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_gallery_thumbnails_on_product_id"
@@ -47,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_150203) do
 
   create_table "high_resolution_images", force: :cascade do |t|
     t.string "image"
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_high_resolution_images_on_product_id"
@@ -66,10 +60,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_150203) do
 
   create_table "testimonials", force: :cascade do |t|
     t.string "message"
-    t.integer "product_id"
+    t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index "\"product\"", name: "index_testimonials_on_product_id"
+    t.index ["product_id"], name: "index_testimonials_on_product_id"
   end
 
   create_table "users", force: :cascade do |t|
