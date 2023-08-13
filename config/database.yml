@@ -12,8 +12,9 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: db/development.postgresql
+   url: postgresql://emc_postgress_user:BQ8ZEPhT6KfgKrTGrTwKrzGSbAclaZ5q@dpg-cjatug0cfp5c738sb660-a.oregon-postgres.render.com/emc_postgress
+  # <<: *default
+  # database: db/development.postgresql
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
