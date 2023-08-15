@@ -1,4 +1,4 @@
-
+The demo: `https://easymart-backend.onrender.com`
 ## SETUP
 To set up the project locally, follow these steps:
 
